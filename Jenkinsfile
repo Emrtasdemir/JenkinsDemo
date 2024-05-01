@@ -13,15 +13,7 @@ pipeline {
                 bat 'mvn clean install'
             }
         }
-        stage('Stop and Remove Existing Container') {
-                             steps {
-                                 script {
-                                   //container'ı durdur ve sil
-                                            bat 'docker stop demo-container '
-                                            bat 'docker rm demo-container'
-                                        }
-                                   }
-                        }
+
         stage('Build docker image'){
             steps{
                 script{
