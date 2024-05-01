@@ -1,4 +1,3 @@
 FROM openjdk:21
-ARG JAR_FILE=target/*.jar
-COPY target/demo-0.0.1-SNAPSHOT.jar application.jar
-ENTRYPOINT ["java", "-jar", "application.jar"]
+ADD target/demo-0.0.1-SNAPSHOT.jar demo-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/demo-0.0.1-SNAPSHOT.jar"]
