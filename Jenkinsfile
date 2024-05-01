@@ -25,4 +25,3 @@ pipeline {
                     docker.image("emirt:${env.BUILD_NUMBER}").run("-d -p 8080:8080 --name demo-container")
                 }
             }
-}
