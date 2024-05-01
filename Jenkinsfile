@@ -1,28 +1,41 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven'
+    }
     stages {
         stage('Build Maven') {
             steps {
                 checkout scmGit(
-                    branches: [[name: '*/master']],
+                    branches: [[name: '*/main']],
                     userRemoteConfigs: [[url: 'https://github.com/Emrtasdemir/JenkinsDemo']]
                 )
-
+                bat 'mvn clean install'
             }
         }
+        stage('Stop and Remove Existing Container') {
+                             steps {
+                                 script {
+                                   //container'ı durdur ve sil
+                                            bat 'docker stop demo-container '
+                                            bat 'docker rm demo-container'
+                                        }
+                                   }
+                        }
         stage('Build docker image'){
             steps{
                 script{
-                    docker.build("emirt:${env.BUILD_NUMBER}")
+                    docker.build("emir:${env.BUILD_NUMBER}")
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
                 script{
-                    docker.image("emirt:${env.BUILD_NUMBER}").run("-d -p 8080:8080 --name demo-container")
+                    docker.image("emir:${env.BUILD_NUMBER}").run("-d -p 8080:8080 --name demo-container")
                 }
             }
-          }
- }
+        }
+    }
+
 }
