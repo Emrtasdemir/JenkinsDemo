@@ -17,14 +17,14 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    docker.build("emir:${env.BUILD_NUMBER}")
+                    docker.build("Emrtasdemir:${env.BUILD_NUMBER}")
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
                 script{
-                    docker.image("emir:${env.BUILD_NUMBER}").run("-d -p 8081:8081 --name demo-container")
+                    docker.image("Emrtasdemir:${env.BUILD_NUMBER}").run("-d -p 8081:8081 --name demo-container")
                 }
             }
         }
