@@ -7,7 +7,7 @@ pipeline {
         stage('Build Maven') {
             steps {
                 checkout scmGit(
-                    branches: [[name: '*/main']],
+                    branches: [[name: '*/master']],
                     userRemoteConfigs: [[url: 'https://github.com/Emrtasdemir/JenkinsDemo']]
                 )
                 bat 'mvn clean install'
@@ -32,7 +32,7 @@ pipeline {
         stage('Push image to Hub'){
             steps{
                 script{
-                    docker.image("emir:${env.BUILD_NUMBER}").run("-d -p 8080:8080 --name demo-container")
+                    docker.image("emir:${env.BUILD_NUMBER}").run("-d -p 8081:8081 --name demo-container")
                 }
             }
         }
